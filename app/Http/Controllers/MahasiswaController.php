@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,6 @@ class MahasiswaController extends Controller
     public function index()
     {
         $mahasiswa = Mahasiswa::all();
-
         return view('mahasiswa',[
             'mahasiswa' => $mahasiswa
         ]);
@@ -32,10 +32,10 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'nim' => 'required|unique:mahasiswa',
-            'jurusan' => 'required',
-            'alamat' => 'required'
+            'nama'=>'required',
+            'nim'=>'required|unique:mahasiswa',
+            'jurusan'=>'required',
+            'alamat'=>'required'
         ]);
 
         $mahasiswa = new Mahasiswa;
@@ -45,7 +45,6 @@ class MahasiswaController extends Controller
         $mahasiswa->alamat = $request->alamat;
         $mahasiswa->save();
         return redirect()->route('index');
-
     }
 
     /**
@@ -62,7 +61,6 @@ class MahasiswaController extends Controller
     public function edit(string $id_mahasiswa)
     {
         $mahasiswa = Mahasiswa::find($id_mahasiswa);
-
         return view('update', [
             'mahasiswa' => $mahasiswa
         ]);
@@ -74,19 +72,21 @@ class MahasiswaController extends Controller
     public function update(Request $request, string $id_mahasiswa)
     {
         // $request->validate([
-        //     'nama' => 'required',
-        //     'nim' => 'required|unique:mahasiswa',
-        //     'jurusan' => 'required',
-        //     'alamat' => 'required'
+        //     'nama'=>'required',
+        //     'nim'=>'required|unique:mahasiswa',
+        //     'jurusan'=>'required',
+        //     'alamat'=>'required'
         // ]);
-
         $mahasiswa = Mahasiswa::find($id_mahasiswa);
+
         $mahasiswa->nama = $request->nama;
         $mahasiswa->nim = $request->nim;
         $mahasiswa->jurusan = $request->jurusan;
         $mahasiswa->alamat = $request->alamat;
         $mahasiswa->save();
         return redirect()->route('index');
+
+
     }
 
     /**
@@ -94,8 +94,9 @@ class MahasiswaController extends Controller
      */
     public function destroy(string $id_mahasiswa)
     {
-        $mahasiswa = Mahasiswa::find($id_mahasiswa);
-        $mahasiswa->delete();
-        return redirect()->route('index');
+    $mahasiswa = Mahasiswa::find($id_mahasiswa);
+    $mahasiswa->delete();
+    return redirect()->route('index');
+
     }
 }
